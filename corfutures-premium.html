@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorFutures • Trade With Purpose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&amp;display=swap">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&amp;display=swap');
+        
+        :root {
+            --purple: #a855f7;
+            --pink: #ec4899;
+        }
+        
+        body {
+            font-family: 'Exo 2', system-ui, -apple-system, sans-serif;
+        }
+        
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #a855f7;
+        }
+
+        .premium-btn {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.2), 0 8px 10px -6px rgb(168 85 247 / 0.2);
+        }
+
+        .premium-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transition: 0.6s;
+        }
+        
+        .premium-btn:hover::after {
+            left: 250%;
+        }
+
+        .trading-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(15, 15, 20, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+        }
+        
+        .trading-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: #a855f7;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #a855f7;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle-float 15s infinite linear;
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-800px) translateX(100px); opacity: 0; }
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 50% 30%, rgba(168,85,247,0.12) 0%, transparent 70%);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0f] text-white overflow-x-hidden">
+    <!-- Animated Background Particles -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="relative w-11 h-11">
+                    <!-- Purple CF Logo -->
+                    <div class="w-11 h-11 bg-gradient-to-br from-[#a855f7] via-[#c026d3] to-[#ec4899] rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <span class="text-white font-black text-3xl tracking-[-2px]">CF</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold text-2xl tracking-[-1.2px]">cor futures</div>
+                    <div class="text-[9px] text-white/50 -mt-1 tracking-[2px]">TRADING HUB</div>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+                <a href="#hub" class="nav-link text-white/80 hover:text-white">Trader Hub</a>
+                <a href="#orbit" class="nav-link text-white/80 hover:text-white">Orbit</a>
+                <a href="#edge" class="nav-link text-white/80 hover:text-white">Edge Program</a>
+                <a href="#team" class="nav-link text-white/80 hover:text-white">Team</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="showLoginModal()" 
+                        class="px-6 py-2 text-sm font-semibold border border-white/30 hover:bg-white/5 rounded-full transition-all active:scale-[0.985]">
+                    Log in
+                </button>
+                <button onclick="document.getElementById('hub').scrollIntoView({ behavior: 'smooth' })" 
+                        class="premium-btn text-white px-7 py-2.5 rounded-full text-sm font-semibold shadow-lg">
+                    Join Free
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[100dvh] flex items-center justify-center pt-20 px-6 hero-bg">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+                <div class="w-2 h-2 bg-[#a855f7] rounded-full animate-pulse"></div>
+                <span class="text-sm font-medium tracking-wider">NOW OPEN — FREE TRADER HUB</span>
+            </div>
+
+            <h1 class="text-7xl md:text-[92px] leading-[0.92] font-bold tracking-[-6.5px] mb-6">
+                Master the markets.<br>
+                <span class="gradient-text">Trade with purpose.</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-2xl text-white/70 tracking-[-0.4px] mb-10">
+                The modern home for serious futures traders.<br>
+                Community. Tools. Education. Results.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="document.getElementById('hub').scrollIntoView({ behavior: 'smooth' })" 
+                        class="premium-btn px-10 py-4 text-xl font-semibold rounded-3xl flex items-center gap-3 group">
+                    Join the Trader Hub — Free
+                    <span class="group-active:translate-x-1 transition">→</span>
+                </button>
+                
+                <button onclick="document.getElementById('orbit').scrollIntoView({ behavior: 'smooth' })" 
+                        class="px-9 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition-all">
+                    Explore Orbit
+                </button>
+            </div>
+            
+            <div class="mt-8 flex justify-center gap-8 text-sm text-white/50">
+                <div>Free forever access</div>
+                <div>Cancel Orbit anytime</div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-xs tracking-widest text-white/40">
+            SCROLL TO BEGIN
+            <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="border-y border-white/10 py-5 bg-black/30">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-3 text-sm text-white/60">
+            <div class="flex items-center gap-2">
+                <span class="font-semibold text-white">2,400+</span> traders
+            </div>
+            <div>Funded on Topstep, Apex &amp; Lucid</div>
+            <div>ICT • Order Blocks • Volume Profile</div>
+            <div>Live coaching every week</div>
+        </div>
+    </div>
+
+    <!-- Trader Hub Section -->
+    <section id="hub" class="max-w-7xl mx-auto px-6 pt-24 pb-16">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7">
+                <div class="inline-block px-3.5 py-1 rounded-full bg-[#a855f7]/10 text-[#a855f7] text-xs tracking-[2px] font-semibold mb-4">FREE ACCESS</div>
+                
+                <h2 class="section-title text-7xl tracking-[-3.5px] leading-none mb-6">The Trader Hub</h2>
+                <p class="text-2xl text-white/70 max-w-lg">Your free, private community for futures traders. Market context, trade ideas, and real accountability — every day.</p>
+                
+                <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="flex gap-4">
+                        <div class="text-[#a855f7] text-2xl mt-0.5">→</div>
+                        <div>
+                            <div class="font-semibold">Live Trade Rooms</div>
+                            <div class="text-white/60 text-sm">NQ • ES • MES discussions</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-[#a855f7] text-2xl mt-0.5">→</div>
+                        <div>
+                            <div class="font-semibold">Daily Market Outlooks</div>
+                            <div class="text-white/60 text-sm">Posted every session</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-[#a855f7] text-2xl mt-0.5">→</div>
+                        <div>
+                            <div class="font-semibold">Self-Guided Lessons</div>
+                            <div class="text-white/60 text-sm">Core concepts at your pace</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-[#a855f7] text-2xl mt-0.5">→</div>
+                        <div>
+                            <div class="font-semibold">Profile &amp; Progress</div>
+                            <div class="text-white/60 text-sm">Track your journey</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showSignupModal()" 
+                        class="mt-10 premium-btn px-9 py-4 rounded-3xl text-lg font-semibold">
+                    Create Free Account
+                </button>
+            </div>
+
+            <!-- Visual Card -->
+            <div class="lg:col-span-5">
+                <div class="trading-card rounded-3xl p-8 border border-white/10">
+                    <div class="text-xs tracking-widest text-white/50 mb-6">INSIDE THE FREE HUB</div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">Market Outlooks</div>
+                                <div class="text-sm text-white/50">Posted daily by coaches</div>
+                            </div>
+                            <div class="text-[#a855f7] font-mono text-sm">24 today</div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">Active Traders</div>
+                                <div class="text-sm text-white/50">Right now in rooms</div>
+                            </div>
+                            <div class="text-[#a855f7] font-mono text-sm">187</div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">New Lessons</div>
+                                <div class="text-sm text-white/50">Added this month</div>
+                            </div>
+                            <div class="text-[#a855f7] font-mono text-sm">12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orbit Section -->
+    <section id="orbit" class="bg-[#111114] py-20 border-y border-white/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#a855f7]/10 text-[#a855f7] text-xs tracking-[2px] font-bold mb-4">MOST POPULAR</div>
+                <h2 class="section-title text-7xl tracking-[-3.5px]">Orbit</h2>
+                <p class="text-2xl text-white/70 mt-2">The complete monthly membership inside the Trader Hub</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="trading-card rounded-3xl p-10 md:p-14 border border-[#a855f7]/30">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-y-8 mb-12">
+                        <div>
+                            <div class="text-[#a855f7] text-sm tracking-widest font-semibold">MONTHLY MEMBERSHIP</div>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <span class="text-7xl font-bold tracking-[-3px]">$57</span>
+                                <span class="text-2xl text-white/60">/ month</span>
+                            </div>
+                        </div>
+                        <button onclick="showSignupModal()" class="premium-btn px-10 py-4 text-lg font-semibold rounded-3xl">
+                            Start Orbit Now
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-x-10 gap-y-8">
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Weekly Live Coaching</div>
+                                <div class="text-white/60 text-sm">Real-time market walkthroughs &amp; Q&amp;A</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Core 5 Indicator Pack</div>
+                                <div class="text-white/60 text-sm">Premium TradingView setups included</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Advanced Strategies</div>
+                                <div class="text-white/60 text-sm">Order blocks, liquidity, FVG frameworks</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Psychology Playbook</div>
+                                <div class="text-white/60 text-sm">7-page deep dive + ongoing training</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Priority Rooms &amp; Support</div>
+                                <div class="text-white/60 text-sm">Direct coach access + private channels</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-[#a855f7] mt-1">•</div>
+                            <div>
+                                <div class="font-semibold">Trade Log &amp; Analytics</div>
+                                <div class="text-white/60 text-sm">Professional performance tracking</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edge Program -->
+    <section id="edge" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="grid lg:grid-cols-12 gap-x-12 gap-y-10">
+            <div class="lg:col-span-5">
+                <div class="sticky top-24">
+                    <div class="text-xs tracking-[3px] text-[#a855f7] font-semibold mb-3">IN-DEPTH TRAINING</div>
+                    <h2 class="section-title text-6xl tracking-[-2.5px] leading-none">The Edge Program</h2>
+                    <p class="mt-5 text-xl text-white/70">Structured, high-impact training. Self-paced or with live coaching. Built for traders who want real results.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Self-Paced -->
+                <div class="trading-card rounded-3xl p-9 flex flex-col md:flex-row gap-8 items-start border border-white/10">
+                    <div class="flex-1">
+                        <div class="font-bold text-3xl">Self-Paced Track</div>
+                        <div class="text-white/60 mt-1">Go at your own speed</div>
+                        
+                        <ul class="mt-6 space-y-2.5 text-white/80">
+                            <li class="flex gap-3">• Full video curriculum</li>
+                            <li class="flex gap-3">• Interactive lesson slides</li>
+                            <li class="flex gap-3">• Quizzes &amp; progress tracking</li>
+                            <li class="flex gap-3">• Lifetime access</li>
+                        </ul>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl font-bold">$297</div>
+                        <div class="text-xs text-white/50 tracking-widest">ONE-TIME</div>
+                        <button onclick="showSignupModal()" class="mt-6 w-full px-8 py-3 border border-white/30 hover:bg-white/5 rounded-2xl text-sm font-semibold transition">Get Started</button>
+                    </div>
+                </div>
+
+                <!-- Live Coaching -->
+                <div class="trading-card rounded-3xl p-9 flex flex-col md:flex-row gap-8 items-start border border-[#a855f7]/40 relative overflow-hidden">
+                    <div class="absolute top-6 right-6 px-3 py-1 text-xs rounded-full bg-[#a855f7] text-black font-bold tracking-wider">RECOMMENDED</div>
+                    
+                    <div class="flex-1">
+                        <div class="font-bold text-3xl">With Live Coaching</div>
+                        <div class="text-white/60 mt-1">Maximum results • Best value</div>
+                        
+                        <ul class="mt-6 space-y-2.5 text-white/80">
+                            <li class="flex gap-3">• Everything in Self-Paced +</li>
+                            <li class="flex gap-3">• 4 live group coaching calls</li>
+                            <li class="flex gap-3">• Personal trade reviews</li>
+                            <li class="flex gap-3">• Private coach Discord access</li>
+                        </ul>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-5xl font-bold">$497</div>
+                        <div class="text-xs text-white/50 tracking-widest">ONE-TIME</div>
+                        <button onclick="showSignupModal()" class="mt-6 w-full px-8 py-3 premium-btn rounded-2xl text-sm font-semibold">Join With Coaching</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="bg-[#111114] border-t border-white/10 py-20">
+        <div class="max-w-2xl mx-auto text-center px-6">
+            <h2 class="text-6xl tracking-[-2.5px] font-bold">Ready to trade with purpose?</h2>
+            <p class="mt-4 text-xl text-white/70">Start with the free Trader Hub. Upgrade to Orbit or The Edge Program whenever you're ready.</p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showSignupModal()" class="premium-btn px-10 py-4 text-xl font-semibold rounded-3xl">Join the Trader Hub — Free</button>
+                <button onclick="document.getElementById('orbit').scrollIntoView({ behavior: 'smooth' })" class="px-9 py-4 text-lg font-semibold border border-white/30 hover:bg-white/5 rounded-3xl transition">See Orbit Details</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 text-sm text-white/50 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-y-4">
+            <div>© 2026 CorFutures LLC • Futures trading involves substantial risk of loss</div>
+            <div class="flex gap-x-8">
+                <a href="#" class="hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-white">Terms</a>
+                <a href="#" class="hover:text-white">Risk Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" onclick="if (event.target.id === 'login-modal') closeModals()" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4">
+        <div onclick="event.stopImmediatePropagation()" class="trading-card w-full max-w-md rounded-3xl p-9">
+            <h3 class="text-3xl font-bold text-center tracking-tight">Welcome back</h3>
+            <p class="text-center text-white/60 mt-1">Log in to your Trader Hub</p>
+            
+            <div class="mt-8 space-y-4">
+                <div>
+                    <input type="email" placeholder="Email address" class="w-full bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                </div>
+                <div>
+                    <input type="password" placeholder="Password" class="w-full bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                </div>
+                <button onclick="fakeLogin()" class="premium-btn w-full py-4 rounded-2xl font-semibold text-lg">Log In</button>
+            </div>
+            
+            <div class="text-center text-sm text-white/60 mt-6">Don't have an account? <span onclick="closeModals(); showSignupModal()" class="text-[#a855f7] cursor-pointer hover:underline">Join free</span></div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" onclick="if (event.target.id === 'signup-modal') closeModals()" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4">
+        <div onclick="event.stopImmediatePropagation()" class="trading-card w-full max-w-md rounded-3xl p-9">
+            <h3 class="text-3xl font-bold text-center tracking-tight">Join the Trader Hub</h3>
+            <p class="text-center text-white/60 mt-1">Free access • No credit card required</p>
+            
+            <div class="mt-7 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="First name" class="bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                    <input type="text" placeholder="Last name" class="bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                </div>
+                <input type="email" placeholder="Email address" class="w-full bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                <input type="password" placeholder="Create password" class="w-full bg-white/5 border border-white/20 px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#a855f7]">
+                
+                <button onclick="fakeSignup()" class="premium-btn w-full py-4 rounded-2xl font-semibold text-lg mt-2">Create Free Account</button>
+            </div>
+            
+            <div class="text-[11px] text-center text-white/40 mt-5">By joining you agree to our Terms &amp; Risk Disclosure</div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent-purple', '#a855f7');
+        }
+
+        // Navbar scroll effect
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled', 'shadow-xl');
+                } else {
+                    navbar.classList.remove('nav-scrolled', 'shadow-xl');
+                }
+            });
+        }
+
+        // Particle background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+
+            for (let i = 0; i < 45; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 120}vh`;
+                particle.style.animationDuration = `${12 + Math.random() * 18}s`;
+                particle.style.animationDelay = `-${Math.random() * 20}s`;
+                particle.style.opacity = Math.random() * 0.6 + 0.2;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Modal functions
+        function showLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+        }
+        
+        function showSignupModal() {
+            document.getElementById('signup-modal').classList.remove('hidden');
+            document.getElementById('signup-modal').classList.add('flex');
+        }
+        
+        function closeModals() {
+            document.getElementById('login-modal').classList.remove('flex');
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('signup-modal').classList.remove('flex');
+            document.getElementById('signup-modal').classList.add('hidden');
+        }
+
+        function fakeLogin() {
+            const modal = document.getElementById('login-modal');
+            modal.innerHTML = `
+                <div class="trading-card w-full max-w-md rounded-3xl p-9 text-center">
+                    <div class="text-5xl mb-4">🎉</div>
+                    <h3 class="text-2xl font-bold">Welcome back!</h3>
+                    <p class="mt-2 text-white/70">You're now logged into the Trader Hub.</p>
+                    <button onclick="window.location.reload()" class="mt-8 w-full py-3.5 rounded-2xl bg-white text-black font-semibold">Enter Trader Hub</button>
+                </div>
+            `;
+        }
+
+        function fakeSignup() {
+            const modal = document.getElementById('signup-modal');
+            modal.innerHTML = `
+                <div class="trading-card w-full max-w-md rounded-3xl p-9 text-center">
+                    <div class="text-5xl mb-4">🚀</div>
+                    <h3 class="text-2xl font-bold">Account created!</h3>
+                    <p class="mt-2 text-white/70">Welcome to the CorFutures Trader Hub.<br>Check your email to get started.</p>
+                    <button onclick="window.location.reload()" class="mt-8 w-full py-3.5 rounded-2xl premium-btn font-semibold">Go to Dashboard</button>
+                </div>
+            `;
+        }
+
+        // Keyboard escape
+        function initKeyboard() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    document.getElementById('login-modal').classList.add('hidden');
+                    document.getElementById('signup-modal').classList.add('hidden');
+                }
+            });
+        }
+
+        // Initialize everything
+        function init() {
+            initTailwind();
+            initNavbar();
+            createParticles();
+            initKeyboard();
+            
+            // Subtle console message for fun
+            console.log('%c[CorFutures] Premium single-file site loaded successfully.', 'color:#666');
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
