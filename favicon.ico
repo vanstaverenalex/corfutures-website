@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --font-exo2: var(--font-exo2);
+}
+
+body {
+  font-family: var(--font-exo2);
+}
+
+/* Premium Purple Trading Theme */
+.trading-card {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.3s ease;
+  background: rgba(20, 20, 30, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.trading-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: #a855f7;
+  box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.4);
+}
+
+.premium-btn {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.premium-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 200% 50%; }
+}
+
+.nav-link {
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #a855f7;
+}
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.section-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
